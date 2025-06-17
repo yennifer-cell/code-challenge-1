@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chai Ingredients Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    label, input, button {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Chai Ingredients Calculator</h1>
+
+  <label for="cupsInput">Number of cups:</label>
+  <input type="number" id="cupsInput" min="1" value="1" />
+  <button id="calculateBtn">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateChaiIngredients(numberOfCups) {
+      const waterPerCup = 200;
+      const milkPerCup = 50;
+      const teaLeavesPerCup = 3;
+      const sugarPerCup = 2;
+
+      return {
+        water: waterPerCup * numberOfCups,
+        milk: milkPerCup * numberOfCups,
+        teaLeaves: teaLeavesPerCup * numberOfCups,
+        sugar: sugarPerCup * numberOfCups
+      };
+    }
+
+    const cupsInput = document.getElementById('cupsInput');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+
+    calculateBtn.addEventListener('click', () => {
+      const cups = parseInt(cupsInput.value);
+      if (isNaN(cups) || cups < 1) {
+        resultDiv.textContent = 'Please enter a valid number of cups (1 or more).';
+        return;
+      }
+
+      const ingredients = calculateChaiIngredients(cups);
+
+      resultDiv.innerHTML = `
+        For ${cups} cup(s) of chai, you need:<br>
+        - Water: ${ingredients.water} ml<br>
+        - Milk: ${ingredients.milk} ml<br>
+        - Tea leaves: ${ingredients.teaLeaves} grams<br>
+        - Sugar: ${ingredients.sugar} grams
+      `;
+    });
+  </script>
+
+</body>
+</html>
